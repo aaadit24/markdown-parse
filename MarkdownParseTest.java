@@ -74,7 +74,7 @@ public class MarkdownParseTest {
         String str =
             Files.readString(Path.of("test-file3.md"));
         assertEquals(
-            123,
+            List.of(),
             MarkdownParse.getLinks(str)
         );
     }
