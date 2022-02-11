@@ -15,9 +15,9 @@
 //             System.out.println(currentIndex);
 //             int nextOpenBracket = markdown.indexOf("[", currentIndex);
 //             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
-//             // if (nextOpenBracket < 0 || nextCloseBracket <0){
-//             //     break;
-//             // }
+//             if (nextOpenBracket < 0 || nextCloseBracket <0){
+//                 break;
+//             }
 //             int openParen = markdown.indexOf("(", nextCloseBracket);
 //             int closeParen = markdown.indexOf(")", openParen);
 //             toReturn.add(markdown.substring(openParen + 1, closeParen));
@@ -49,30 +49,18 @@ public class MarkdownParse {
         // the next )
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
-            int nextOpenBracket = markdown.indexOf("[", currentIndex),
-                nextCloseBracket = markdown.indexOf("]", nextOpenBracket),
-                openParen = markdown.indexOf("(", nextCloseBracket),
-                closeParen = markdown.indexOf(")", openParen);
-
-            if(nextOpenBracket > 0 &&
-               markdown.charAt(nextOpenBracket-1) == '!'){
-                // Image, skip
-                currentIndex = nextCloseBracket + 1;
-            } 
-            else if(nextOpenBracket >= 0 &&
-                      nextCloseBracket >= 0 &&
-                      nextCloseBracket > nextOpenBracket+1 &&
-                      openParen == nextCloseBracket+1 &&
-                      closeParen >= 0){
-                // Valid link, add to list
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
-                currentIndex = closeParen + 1;
+            int nextOpenBracket = markdown.indexOf("[", currentIndex);
+            int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
+            if (nextOpenBracket < 0 || nextCloseBracket <0){
+                break;
             }
+            int openParen = markdown.indexOf("(", nextCloseBracket);
+            int closeParen = markdown.indexOf(")", openParen);
+            toReturn.add(markdown.substring(openParen + 1, closeParen));
+            System.out.println(nextOpenBracket);
+            System.out.println(nextCloseBracket);
             
-            else {
-                // Invalid link, advance one character
-                currentIndex += 1;
-            }
+            currentIndex = closeParen + 1;
         }
         return toReturn;
     }
