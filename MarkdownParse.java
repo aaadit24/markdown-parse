@@ -58,16 +58,18 @@ public class MarkdownParse {
                markdown.charAt(nextOpenBracket-1) == '!'){
                 // Image, skip
                 currentIndex = nextCloseBracket + 1;
-            } else if(nextOpenBracket >= 0 &&
+            } 
+            else if(nextOpenBracket >= 0 &&
                       nextCloseBracket >= 0 &&
                       nextCloseBracket > nextOpenBracket+1 &&
                       openParen == nextCloseBracket+1 &&
-                      closeParen >= 0
-            ){
+                      closeParen >= 0){
                 // Valid link, add to list
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
                 currentIndex = closeParen + 1;
-            } else {
+            }
+            
+            else {
                 // Invalid link, advance one character
                 currentIndex += 1;
             }
